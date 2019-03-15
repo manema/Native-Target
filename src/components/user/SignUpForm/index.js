@@ -5,6 +5,8 @@ import { View, Text, Button } from 'react-native';
 
 import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
+import Cpicker from 'components/common/CPicker';
+import { gender } from 'utils/constants';
 import translate from 'utils/i18n';
 import styles from './styles';
 
@@ -12,9 +14,20 @@ const SignUpForm = ({ handleSubmit, error }) => (
   <View onSubmit={handleSubmit}>
     {error && <Text>{error}</Text>}
     <Field
+      name="username"
+      label={translate('SIGN_UP.username')}
+      component={Input}
+    />
+    <Field
       name="email"
       label={translate('SIGN_UP.email')}
       component={Input}
+    />
+    <Field
+      name="genderPicker"
+      label={translate('SIGN_UP.gender')}
+      component={Cpicker}
+      items={gender}
     />
     <Field
       name="password"
