@@ -15,6 +15,8 @@ export default {
     email: 'Email',
     password: 'Password',
     passwordConfirmation: 'Password confirmation',
-    button: 'Sign up'
+    button: 'Sign up',
+    username: 'Username',
+    gender: 'Gender'
   }
 };
