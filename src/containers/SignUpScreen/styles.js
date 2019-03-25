@@ -1,15 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { BLACK } from '../../constants/styleConstants';
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#F5FCFF',
+  dataContainer: {
+    alignSelf: 'center',
     flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 50,
+    width: '55%',
   },
   welcome: {
+    color: BLACK,
     fontSize: 20,
-    margin: 10,
+    fontWeight: 'bold',
+    letterSpacing: 3,
+    marginTop: '25%',
+    marginBottom: '20%',
     textAlign: 'center',
   },
 });

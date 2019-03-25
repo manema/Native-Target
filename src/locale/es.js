@@ -16,7 +16,7 @@ export default {
     password: 'Contraseña',
     passwordConfirmation: 'Repetir contraseña',
     button: 'Iniciar sesión',
-    username: 'Nombre de usuario',
+    name: 'Nombre',
     gender: 'Genero'
   }
 };

@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 
 import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
 import Cpicker from 'components/common/CPicker';
-import { gender } from 'utils/constants';
 import translate from 'utils/i18n';
-import styles from './styles';
+import { GENDER } from '../../../constants/appConstants';
+import { BLACK, WHITE, FONT_ERROR } from '../../../constants/styleConstants';
+import Button from '../../common/Button';
 
 const SignUpForm = ({ handleSubmit, error }) => (
   <View onSubmit={handleSubmit}>
-    {error && <Text>{error}</Text>}
+    {error && <Text style={FONT_ERROR}>{error}</Text>}
     <Field
       name="username"
-      label={translate('SIGN_UP.username')}
+      label={translate('SIGN_UP.name')}
       component={Input}
     />
     <Field
@@ -27,7 +28,7 @@ const SignUpForm = ({ handleSubmit, error }) => (
       name="genderPicker"
       label={translate('SIGN_UP.gender')}
       component={Cpicker}
-      items={gender}
+      items={GENDER}
     />
     <Field
       name="password"
@@ -41,9 +42,13 @@ const SignUpForm = ({ handleSubmit, error }) => (
       component={Input}
       password
     />
-    <View style={styles.button}>
-      <Button title={translate('SIGN_UP.button')} onPress={handleSubmit} />
-    </View>
+    <Button
+      marginTop={25}
+      textColor={WHITE}
+      title={translate('SIGN_UP.button').toUpperCase()}
+      color={BLACK}
+      onPress={handleSubmit}
+    />
   </View>
 );
 

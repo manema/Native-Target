@@ -2,6 +2,7 @@ import { SubmissionError } from 'redux-form';
 import { sessionService } from 'redux-react-native-session';
 
 import userApi from 'api/userApi';
+import { normalizeError } from '../utils/helpers';
 import * as types from './actionTypes';
 
 export const loginSuccess = () => ({
@@ -20,7 +21,7 @@ export const login = user =>
       dispatch(loginSuccess());
     } catch (err) {
       throw new SubmissionError({
-        _error: err.error,
+        _error: normalizeError(err.errors),
       });
     }
   };
@@ -44,7 +45,7 @@ export const signUp = user =>
       sessionService.saveUser(response.user);
     } catch (err) {
       throw new SubmissionError({
-        _error: err.error,
+        _error: normalizeError(err.errors.fullMessages),
       });
     }
   };
