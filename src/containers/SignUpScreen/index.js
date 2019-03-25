@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, ImageBackground, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { getSessionState } from 'selectors/sessionSelector';
 
 import SignUpForm from 'components/user/SignUpForm';
 import { signUp } from 'actions/userActions';
@@ -45,8 +46,12 @@ SignUpScreen.navigationOptions = {
   title: 'Sign Up'
 };
 
+const mapState = state => ({
+  authenticated: getSessionState(state),
+});
+
 const mapDispatch = dispatch => ({
   signUp: user => dispatch(signUp(user))
 });
 
-export default connect(null, mapDispatch)(SignUpScreen);
+export default connect(mapState, mapDispatch)(SignUpScreen);

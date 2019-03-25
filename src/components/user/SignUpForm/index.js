@@ -5,11 +5,19 @@ import { View, Text } from 'react-native';
 
 import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
+<<<<<<< HEAD
 import Custompicker from 'components/common/CustomPicker';
 import translate from 'utils/i18n';
 import { GENDER } from 'constants/appConstants';
 import { BLACK, WHITE, FONT_ERROR } from 'constants/styleConstants';
 import Button from 'components/common/Button';
+=======
+import Cpicker from 'components/common/CPicker';
+import translate from 'utils/i18n';
+import { GENDER } from '../../../constants/appConstants';
+import { BLACK, WHITE, FONT_ERROR } from '../../../constants/styleConstants';
+import Button from '../../common/Button';
+>>>>>>> Added Sign up
 
 const SignUpForm = ({ handleSubmit, error, submitting }) => (
   <View onSubmit={handleSubmit}>
