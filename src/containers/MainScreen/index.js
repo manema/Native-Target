@@ -19,7 +19,7 @@ const MainScreen = ({ username, logout }) => (
 );
 
 MainScreen.propTypes = {
-  username: string.isRequired,
+  username: string,
   logout: func.isRequired
 };
 

@@ -7,10 +7,11 @@ import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
 import translate from 'utils/i18n';
 import styles from './styles';
+import { FONT_ERROR } from '../../../constants/styleConstants';
 
 const LoginForm = ({ handleSubmit, error }) => (
   <View onSubmit={handleSubmit}>
-    {error && <Text>{error}</Text>}
+    {error && <Text style={FONT_ERROR}>{error}</Text>}
     <Field
       name="email"
       label={translate('SIGN_IN.email')}
