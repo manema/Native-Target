@@ -16,12 +16,12 @@ export const logoutSuccess = () => ({
 export const login = user =>
   async (dispatch) => {
     try {
-      const response = await userApi.login({ user });
-      await sessionService.saveUser(response.user);
+      const { data } = await userApi.login({ user });
+      await sessionService.saveUser(data);
       dispatch(loginSuccess());
-    } catch (err) {
+    } catch ({ errors }) {
       throw new SubmissionError({
-        _error: normalizeError(err.errors),
+        _error: normalizeError(errors),
       });
     }
   };
@@ -42,10 +42,10 @@ export const signUp = user =>
   async () => {
     try {
       const response = await userApi.signUp({ user });
-      sessionService.saveUser(response.user);
-    } catch (err) {
+      sessionService.saveUser(response);
+    } catch ({ errors: { fullMessages } }) {
       throw new SubmissionError({
-        _error: normalizeError(err.errors.fullMessages),
+        _error: normalizeError(fullMessages),
       });
     }
   };

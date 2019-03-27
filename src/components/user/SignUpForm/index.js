@@ -5,13 +5,13 @@ import { View, Text } from 'react-native';
 
 import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
-import Cpicker from 'components/common/CPicker';
+import Custompicker from 'components/common/CustomPicker';
 import translate from 'utils/i18n';
-import { GENDER } from '../../../constants/appConstants';
-import { BLACK, WHITE, FONT_ERROR } from '../../../constants/styleConstants';
-import Button from '../../common/Button';
+import { GENDER } from 'constants/appConstants';
+import { BLACK, WHITE, FONT_ERROR } from 'constants/styleConstants';
+import Button from 'components/common/Button';
 
-const SignUpForm = ({ handleSubmit, error }) => (
+const SignUpForm = ({ handleSubmit, error, submitting }) => (
   <View onSubmit={handleSubmit}>
     {error && <Text style={FONT_ERROR}>{error}</Text>}
     <Field
@@ -27,7 +27,7 @@ const SignUpForm = ({ handleSubmit, error }) => (
     <Field
       name="genderPicker"
       label={translate('SIGN_UP.gender')}
-      component={Cpicker}
+      component={Custompicker}
       items={GENDER}
     />
     <Field
@@ -48,15 +48,17 @@ const SignUpForm = ({ handleSubmit, error }) => (
       title={translate('SIGN_UP.button').toUpperCase()}
       color={BLACK}
       onPress={handleSubmit}
+      submitting={submitting}
     />
   </View>
 );
 
-const { func, string } = PropTypes;
+const { func, string, bool } = PropTypes;
 
 SignUpForm.propTypes = {
   handleSubmit: func.isRequired,
-  error: string
+  error: string,
+  submitting: bool.isRequired
 };
 
 export default reduxForm({

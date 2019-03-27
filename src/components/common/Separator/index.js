@@ -14,7 +14,8 @@ const Separator = ({
   return (
     <View
       style={style.separator}
-    />);
+    />
+  );
 };
 
 const { string, number } = PropTypes;

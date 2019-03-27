@@ -1,7 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { WHITE, BLACK, FONT_TITLE } from 'constants/styleConstants';
 
-const styles = (width, height, color, alignSelf, textColor, fontSize, letterSpacing, marginBottom, marginTop) =>
-  StyleSheet.create({
+const styles = (
+  width = 130,
+  height = 50,
+  color = BLACK,
+  alignSelf = 'center',
+  textColor = WHITE,
+  fontSize = FONT_TITLE.fontSize,
+  letterSpacing = 1,
+  marginBottom = 'auto',
+  marginTop = 'auto'
+) => {
+  return ({
     container: {
       marginBottom,
       marginTop,
@@ -28,5 +38,6 @@ const styles = (width, height, color, alignSelf, textColor, fontSize, letterSpac
       letterSpacing
     }
   });
+};
 
 export default styles;

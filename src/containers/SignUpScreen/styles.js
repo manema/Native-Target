@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { BLACK } from '../../constants/styleConstants';
+import { BLACK } from 'constants/styleConstants';
 
 const styles = StyleSheet.create({
+  backgroundStyle: { flex: 1 },
   dataContainer: {
     alignSelf: 'center',
     flex: 1,
