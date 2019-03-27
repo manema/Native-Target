@@ -16,8 +16,13 @@ export const logoutSuccess = () => ({
 export const login = user =>
   async (dispatch) => {
     try {
+<<<<<<< HEAD
       const { data } = await userApi.login({ user });
       await sessionService.saveUser(data);
+=======
+      const response = await userApi.login({ user });
+      await sessionService.saveUser(response.data);
+>>>>>>> ignore third-library
       dispatch(loginSuccess());
     } catch ({ errors }) {
       throw new SubmissionError({

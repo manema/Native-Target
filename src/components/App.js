@@ -23,6 +23,7 @@ class App {
     const authenticated = session.get('authenticated');
     const user = session.get('user');
     const shouldUpdate = this.authenticated !== authenticated && (!authenticated || !user.isEmpty());
+    console.log('should update ?', shouldUpdate);
     if (!this.appInitialized) {
       const checked = session.get('userChecked');
       if (checked) {
