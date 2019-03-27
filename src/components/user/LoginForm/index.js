@@ -6,8 +6,8 @@ import { View, Text, Button } from 'react-native';
 import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
 import translate from 'utils/i18n';
+import { FONT_ERROR } from 'constants/styleConstants';
 import styles from './styles';
-import { FONT_ERROR } from '../../../constants/styleConstants';
 
 const LoginForm = ({ handleSubmit, error }) => (
   <View onSubmit={handleSubmit}>
