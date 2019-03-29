@@ -1,32 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, ImageBackground, ScrollView } from 'react-native';
+import { View, ImageBackground, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 import SignUpForm from 'components/user/SignUpForm';
 import { signUp } from 'actions/userActions';
 import translate from 'utils/i18n';
-import Button from '../../components/common/Button';
-import Separator from '../../components/common/Separator';
-import background from '../../images/background.png';
-import { WHITE, BLACK } from '../../constants/styleConstants';
-import { isIos } from '../../constants/appConstants';
+import WhiteButton from 'components/common/WhiteButton';
+import Separator from 'components/common/Separator';
+import MainHeader from 'components/common/MainHeader';
+import background from 'assets/background.png';
+import { isIos } from 'constants/appConstants';
 import styles from './styles';
 
 const SignUpScreen = ({ signUp, navigator }) =>
   <ScrollView>
     <ImageBackground resizeMode="cover" source={background} style={{ flex: 1 }}>
       <View style={styles.dataContainer}>
-        <Text style={styles.welcome}>
-          {translate('TARGET MVD')}
-        </Text>
+        <MainHeader text={translate('MAIN_SCREEN.title')} />
         <SignUpForm onSubmit={user => signUp(user.toJS())} />
         <Separator />
-        <Button
-          color={WHITE}
+        <WhiteButton
           height={isIos ? 40 : 20}
           marginBottom={20}
-          textColor={BLACK}
           title={translate('SIGN_IN.title').toUpperCase()}
           onPress={() => navigator.pop()}
         />

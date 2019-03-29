@@ -14,7 +14,8 @@
           "selectors": "./src/selectors",
           "store": "./src/store",
           "utils": "./src/utils",
-          "constants": "./src/constants"
+          "constants": "./src/constants",
+          "assets": "./src/assets"
         },
         "cwd": "babelrc"
       }

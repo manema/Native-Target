@@ -1,6 +1,6 @@
 import React from 'react';
 import { string, func, number, object, bool, oneOfType } from 'prop-types';
-import { TouchableHighlight, View, Text, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
 import { isIos } from 'constants/appConstants';
 
 import stylesProps from './styles';
@@ -21,10 +21,24 @@ const Button = (
     fontSize,
     letterSpacing,
     marginBottom,
-    marginTop
+    marginTop,
+    paddingHorizontal,
+    fontWeight
   }
 ) => {
-  const styles = stylesProps(width, height, color, alignSelf, textColor, fontSize, letterSpacing, marginBottom, marginTop);
+  const styles = stylesProps(
+    width,
+    height,
+    color,
+    alignSelf,
+    textColor,
+    fontSize,
+    letterSpacing,
+    marginBottom,
+    marginTop,
+    paddingHorizontal,
+    fontWeight
+  );
   return (
     <View
       style={[
@@ -35,7 +49,7 @@ const Button = (
     >
       { submitting || loading ?
         <ActivityIndicator /> :
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={onPress}
           style={[styles.buttonContainer, styleProps && styleProps.buttonContainer]}
         >
@@ -43,7 +57,7 @@ const Button = (
             <Text style={styles.title}>{title}</Text> :
             children
           }
-        </TouchableHighlight>
+        </TouchableOpacity>
       }
     </View>
   );
@@ -55,7 +69,7 @@ Button.propTypes = {
   alignSelf: string,
   styleProps: object,
   height: number,
-  width: number,
+  width: oneOfType([string, number]),
   children: object,
   color: string,
   textColor: string,
@@ -64,7 +78,9 @@ Button.propTypes = {
   marginBottom: number,
   marginTop: oneOfType([string, number]),
   submitting: bool,
-  loading: bool
+  loading: bool,
+  paddingHorizontal: number,
+  fontWeight: string
 };
 
 export default Button;

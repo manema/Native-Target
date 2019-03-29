@@ -9,7 +9,9 @@ const styles = (
   fontSize = FONT_TITLE.fontSize,
   letterSpacing = 1,
   marginBottom = 'auto',
-  marginTop = 'auto'
+  marginTop = 'auto',
+  paddingHorizontal = 'auto',
+  fontWeight = '600'
 ) => {
   return ({
     container: {
@@ -20,6 +22,7 @@ const styles = (
       alignSelf
     },
     buttonContainer: {
+      paddingHorizontal,
       width,
       backgroundColor: color,
       padding: 10,
@@ -34,7 +37,7 @@ const styles = (
     title: {
       fontSize,
       color: textColor,
-      fontWeight: '600',
+      fontWeight,
       letterSpacing
     }
   });

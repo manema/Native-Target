@@ -8,7 +8,7 @@ import Input from 'components/common/Input';
 import Custompicker from 'components/common/CustomPicker';
 import translate from 'utils/i18n';
 import { GENDER } from 'constants/appConstants';
-import { BLACK, WHITE, FONT_ERROR } from 'constants/styleConstants';
+import { FONT_ERROR } from 'constants/styleConstants';
 import Button from '../../common/Button';
 
 const SignUpForm = ({ handleSubmit, error, submitting }) => (
@@ -44,9 +44,7 @@ const SignUpForm = ({ handleSubmit, error, submitting }) => (
     />
     <Button
       marginTop={25}
-      textColor={WHITE}
       title={translate('SIGN_UP.button').toUpperCase()}
-      color={BLACK}
       onPress={handleSubmit}
       submitting={submitting}
     />

@@ -7,7 +7,8 @@ export default {
   },
 
   MAIN_SCREEN: {
-    logout: 'Sign out'
+    logout: 'Sign out',
+    title: 'TARGET MVD'
   },
 
   SIGN_UP: {
@@ -15,8 +16,10 @@ export default {
     email: 'Email',
     password: 'Password',
     passwordConfirmation: 'Password confirmation',
+    forgottenPassword: 'Forgot your password?',
     button: 'Sign up',
     name: 'Name',
-    gender: 'Gender'
+    gender: 'Gender',
+    facebook: 'CONNECT WITH FACEBOOK'
   }
 };
