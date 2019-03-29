@@ -7,7 +7,7 @@ import * as constraints from 'utils/constraints';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
 import translate from 'utils/i18n';
-import { FONT_ERROR } from 'constants/styleConstants';
+import { FONT_ERROR, WHITE, BLACK } from 'constants/styleConstants';
 import styles from './styles';
 
 const LoginForm = ({ handleSubmit, error, submitting }) => (
