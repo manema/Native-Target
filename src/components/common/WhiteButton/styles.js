@@ -1,15 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { WHITE, BLACK } from 'constants/styleConstants';
+import isIos from 'constants/appConstants';
 
-export const style = (alignSelf, borderBottomColor, borderBottomWidth, marginVertical,
-  width) =>
-  StyleSheet.create({
-    separator: {
-      alignSelf,
-      borderBottomColor,
-      borderBottomWidth,
-      marginVertical,
-      width
-    }
-  });
+export const style = ({
+  addedContainerStyle: {
+    marginBottom: 20,
+    width: '100%',
+    height: isIos ? 40 : 20,
+  },
+  addedTouchableStyle: {
+    backgroundColor: WHITE,
+    width: '100%',
+    height: isIos ? 40 : 20,
+  },
+  addedTextStyle: {
+    color: BLACK,
+  }
+});
 
 export default style;

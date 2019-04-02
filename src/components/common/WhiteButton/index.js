@@ -1,12 +1,12 @@
 import React from 'react';
-import { WHITE, BLACK } from 'constants/styleConstants';
 import Button from 'components/common/Button';
+import styles from './styles';
 
 const WhiteButton = props =>
   <Button
-    textColor={BLACK}
-    color={WHITE}
-    width="100%"
+    addedContainerStyle={styles.addedContainerStyle}
+    addedTouchableStyle={styles.addedTouchableStyle}
+    addedTextStyle={styles.addedTextStyle}
     {...props}
   />;
 

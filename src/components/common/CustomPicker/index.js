@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, object, bool, array } from 'prop-types';
 import { View, Text, Picker } from 'react-native';
 import { FONT_TITLE } from 'constants/styleConstants';
 import { isAndroid } from 'constants/appConstants';
@@ -21,8 +21,6 @@ const CustomPicker = ({ input: { onChange, value, ...restInput }, label, items }
       </Picker>
     </View>
   </View>;
-
-const { string, object, bool, array } = PropTypes;
 
 CustomPicker.propTypes = {
   input: object.isRequired,
