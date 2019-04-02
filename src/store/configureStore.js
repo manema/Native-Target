@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { Iterable } from 'immutable';
 import { createLogger } from 'redux-logger';
@@ -19,7 +19,10 @@ export default function configureStore(initialState) {
     middlewares.push(logger);
   }
 
-  const store = createStore(AppReducer, initialState, applyMiddleware(...middlewares));
+  // eslint-disable-next-line no-underscore-dangle
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  const store = createStore(AppReducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
 
   return store;
 }

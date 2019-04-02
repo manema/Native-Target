@@ -16,7 +16,11 @@ export const signUp = {
     email: true
   },
   password: {
-    presence: true
+    presence: true,
+    length: {
+      minimum: 6,
+      message: 'must be at least 6 characters'
+    }
   },
   passwordConfirmation: {
     presence: true,
