@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { isIos } from './appConstants';
 
 // colors
 export const BLACK = '#000000';
@@ -8,7 +8,7 @@ export const RED = '#FF0000';
 // commons
 export const FONT_TITLE = {
   color: BLACK,
-  fontFamily: Platform.OS === 'ios' ? 'Arial' : 'Lato-Bold',
+  fontFamily: isIos ? 'Arial' : 'Lato-Bold',
   fontWeight: '500',
   fontSize: 14,
   letterSpacing: 1

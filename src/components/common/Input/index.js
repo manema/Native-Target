@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, object, bool } from 'prop-types';
 import { View, TextInput, Text } from 'react-native';
-import { FONT_TITLE, FONT_ERROR } from '../../../constants/styleConstants';
+import { FONT_TITLE, FONT_ERROR } from 'constants/styleConstants';
 import styles from './styles';
 
 const Input = ({ input: { onChange, ...restInput }, password = false, label, meta: { touched, error } }) => (
@@ -19,8 +19,6 @@ const Input = ({ input: { onChange, ...restInput }, password = false, label, met
     {touched && error && <Text style={FONT_ERROR}>{error}</Text>}
   </View>
 );
-
-const { string, object, bool } = PropTypes;
 
 Input.propTypes = {
   input: object.isRequired,

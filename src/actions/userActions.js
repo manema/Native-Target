@@ -17,7 +17,7 @@ export const login = user =>
   async (dispatch) => {
     try {
       const response = await userApi.login({ user });
-      await sessionService.saveUser(response.user);
+      await sessionService.saveUser(response.data);
       dispatch(loginSuccess());
     } catch (err) {
       throw new SubmissionError({
@@ -42,7 +42,7 @@ export const signUp = user =>
   async () => {
     try {
       const response = await userApi.signUp({ user });
-      sessionService.saveUser(response.user);
+      sessionService.saveUser(response);
     } catch (err) {
       throw new SubmissionError({
         _error: normalizeError(err.errors.fullMessages),

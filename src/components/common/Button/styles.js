@@ -1,32 +1,31 @@
-import { StyleSheet } from 'react-native';
+import { WHITE, BLACK, FONT_TITLE } from 'constants/styleConstants';
 
-const styles = (width, height, color, alignSelf, textColor, fontSize, letterSpacing, marginBottom, marginTop) =>
-  StyleSheet.create({
-    container: {
-      marginBottom,
-      marginTop,
-      width,
-      height,
-      alignSelf
-    },
-    buttonContainer: {
-      width,
-      backgroundColor: color,
-      padding: 10,
-      height,
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 999
-    },
-    buttonDisable: {
-      opacity: 0.7
-    },
-    title: {
-      fontSize,
-      color: textColor,
-      fontWeight: '600',
-      letterSpacing
-    }
-  });
+const styles = ({
+  container: {
+    marginVertical: 10,
+    width: 130,
+    height: 50,
+    alignSelf: 'center'
+  },
+  buttonContainer: {
+    paddingHorizontal: 'auto',
+    width: 130,
+    backgroundColor: BLACK,
+    padding: 10,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999
+  },
+  buttonDisable: {
+    opacity: 0.7
+  },
+  title: {
+    fontSize: FONT_TITLE.fontSize,
+    color: WHITE,
+    fontWeight: '600',
+    letterSpacing: 1
+  }
+});
 
 export default styles;
