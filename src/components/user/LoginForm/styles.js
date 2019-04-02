@@ -1,12 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
-    alignSelf: 'center',
-    borderColor: 'lightblue',
-    borderRadius: 5,
-    borderWidth: 2,
-  }
+  button: { alignSelf: 'center' }
 });
 
 export default styles;
