@@ -4,15 +4,17 @@ import { View, ImageBackground, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 import LoginForm from 'components/user/LoginForm';
-import { login } from 'actions/userActions';
+import { login, logout, loginFacebook } from 'actions/userActions';
 import translate from 'utils/i18n';
 import Separator from 'components/common/Separator';
 import MainHeader from 'components/common/MainHeader';
 import background from 'assets/background.png';
-import WhiteButton from 'components/common/WhiteButton';
+import Button from 'components/common/Button';
+import WhiteButton from 'components//common/WhiteButton';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import styles from './styles';
 
-const LoginScreen = ({ login, navigator }) => (
+const LoginScreen = ({ login, logout, loginFacebook, navigator }) => (
   <ScrollView>
     <ImageBackground resizeMode="cover" source={background} style={styles.background}>
       <View style={styles.container}>
@@ -25,6 +27,23 @@ const LoginScreen = ({ login, navigator }) => (
         <WhiteButton
           title={translate('SIGN_UP.facebook')}
           onPress={() => {}}
+        />
+        <LoginButton
+          readPermissions={['public_profile', 'email']}
+          onLoginFinished={(error, result) => {
+            if (error) {
+              throw (error);
+            } else if (result.isCancelled) {
+              console.log('canceled');
+            } else {
+              AccessToken.getCurrentAccessToken()
+                .then((token) => {
+                  loginFacebook(token);
+                })
+                .catch(error => console.log(error));
+            }
+          }}
+          onLogoutFinished={() => logout()}
         />
         <Separator />
         <WhiteButton
@@ -40,6 +59,8 @@ const LoginScreen = ({ login, navigator }) => (
 
 LoginScreen.propTypes = {
   login: func.isRequired,
+  logout: func.isRequired,
+  loginFacebook: func.isRequired,
   navigator: object.isRequired
 };
 
@@ -48,7 +69,9 @@ LoginScreen.navigationOptions = {
 };
 
 const mapDispatch = dispatch => ({
-  login: user => dispatch(login(user))
+  login: user => dispatch(login(user)),
+  logout: () => dispatch(logout()),
+  loginFacebook: token => dispatch(loginFacebook(token))
 });
 
 export default connect(null, mapDispatch)(LoginScreen);

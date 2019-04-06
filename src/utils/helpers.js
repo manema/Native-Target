@@ -6,6 +6,7 @@ export const applyQueryParams = (url, params) => {
 };
 
 export const normalizeError = (errors) => {
+  if (typeof errors === 'string') return errors;
   if (errors.length === 1) return errors[0];
   let error = '';
   errors.forEach((currentError) => {

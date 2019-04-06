@@ -16,17 +16,25 @@ export const logoutSuccess = () => ({
 export const login = user =>
   async (dispatch) => {
     try {
-<<<<<<< HEAD
       const { data } = await userApi.login({ user });
       await sessionService.saveUser(data);
-=======
-      const response = await userApi.login({ user });
-      await sessionService.saveUser(response.data);
->>>>>>> ignore third-library
       dispatch(loginSuccess());
     } catch ({ errors }) {
       throw new SubmissionError({
         _error: normalizeError(errors),
+      });
+    }
+  };
+
+export const loginFacebook = ({ accessToken }) =>
+  async (dispatch) => {
+    try {
+      const { data } = await userApi.loginFacebook({ accessToken });
+      await sessionService.saveUser(data);
+      dispatch(loginSuccess());
+    } catch ({ error }) {
+      throw new SubmissionError({
+        _error: normalizeError(error),
       });
     }
   };
