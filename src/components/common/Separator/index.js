@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, number } from 'prop-types';
 import { View } from 'react-native';
 import propStyle from './styles';
 
@@ -17,8 +17,6 @@ const Separator = ({
     />
   );
 };
-
-const { string, number } = PropTypes;
 
 Separator.propTypes = {
   alignSelf: string,

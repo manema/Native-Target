@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { View, Text } from 'react-native';
 
@@ -8,7 +8,7 @@ import Input from 'components/common/Input';
 import Custompicker from 'components/common/CustomPicker';
 import translate from 'utils/i18n';
 import { GENDER } from 'constants/appConstants';
-import { BLACK, WHITE, FONT_ERROR } from 'constants/styleConstants';
+import { FONT_ERROR } from 'constants/styleConstants';
 import Button from 'components/common/Button';
 
 const SignUpForm = ({ handleSubmit, error, submitting }) => (
@@ -43,17 +43,12 @@ const SignUpForm = ({ handleSubmit, error, submitting }) => (
       password
     />
     <Button
-      marginTop={25}
-      textColor={WHITE}
       title={translate('SIGN_UP.button').toUpperCase()}
-      color={BLACK}
       onPress={handleSubmit}
       submitting={submitting}
     />
   </View>
 );
-
-const { func, string, bool } = PropTypes;
 
 SignUpForm.propTypes = {
   handleSubmit: func.isRequired,
