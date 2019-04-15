@@ -7,7 +7,9 @@ export default {
   },
 
   MAIN_SCREEN: {
-    logout: 'Cerrar sesión'
+    logout: 'Cerrar sesión',
+    newTarget: 'CREAR NUEVO TARGET',
+    pointTarget: 'Puntos targets'
   },
 
   SIGN_UP: {
