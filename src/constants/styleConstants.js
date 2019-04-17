@@ -1,4 +1,9 @@
+import { Dimensions } from 'react-native';
 import { isIos } from './appConstants';
+
+// breakpoints
+export const screenWidth = Dimensions.get('window').width;
+export const SM = 360;
 
 // colors
 export const BLACK = '#000000';
@@ -10,7 +15,7 @@ export const FONT_TITLE = {
   color: BLACK,
   fontFamily: isIos ? 'Arial' : 'Lato-Bold',
   fontWeight: '500',
-  fontSize: 14,
+  fontSize: screenWidth <= SM ? 12 : 14,
   letterSpacing: 1
 };
 

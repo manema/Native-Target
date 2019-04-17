@@ -64,3 +64,6 @@ coverage/
 
 # Third Party
 third-party/
+
+# PODS
+ios/Pods

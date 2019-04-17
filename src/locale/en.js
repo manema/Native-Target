@@ -8,7 +8,9 @@ export default {
 
   MAIN_SCREEN: {
     logout: 'Sign out',
-    title: 'TARGET MVD'
+    title: 'TARGET MVD',
+    newTarget: 'CREATE NEW TARGET',
+    pointTarget: 'Target Points'
   },
 
   SIGN_UP: {

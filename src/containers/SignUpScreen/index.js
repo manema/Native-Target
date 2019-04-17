@@ -16,7 +16,7 @@ const SignUpScreen = ({ signUp, navigator }) =>
   <ScrollView>
     <ImageBackground resizeMode="cover" source={background} style={styles.background}>
       <View style={styles.dataContainer}>
-        <MainHeader text={translate('MAIN_SCREEN.title')} />
+        <MainHeader title={translate('MAIN_SCREEN.title')} />
         <SignUpForm onSubmit={user => signUp(user.toJS())} />
         <Separator />
         <WhiteButton
