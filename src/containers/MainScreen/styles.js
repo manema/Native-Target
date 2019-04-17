@@ -18,7 +18,12 @@ const styles = ({
     marginVertical: '4%'
   },
   createButtonContainer: {
-    height: '15%'
+    height: '15%',
+  },
+  createFormContainer: {
+    height: '55%',
+    width: '80%',
+    marginVertical: '7%'
   }
 });
 

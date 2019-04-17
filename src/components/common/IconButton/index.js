@@ -1,11 +1,12 @@
 import React from 'react';
-import { number, object } from 'prop-types';
+import { number, object, func } from 'prop-types';
 import { TouchableOpacity, Image } from 'react-native';
 import styles from './styles';
 
-const IconButton = ({ icon, iconStyle, containerStyle }) =>
+const IconButton = ({ icon, iconStyle, containerStyle, onPress }) =>
   <TouchableOpacity
     style={[styles.container, containerStyle]}
+    onPress={onPress}
   >
     <Image
       source={icon}
@@ -16,7 +17,8 @@ const IconButton = ({ icon, iconStyle, containerStyle }) =>
 IconButton.propTypes = {
   icon: number.isRequired,
   iconStyle: object,
-  containerStyle: object
+  containerStyle: object,
+  onPress: func.isRequired
 };
 
 export default IconButton;
