@@ -4,13 +4,13 @@ import { Text } from 'react-native';
 import translate from 'utils/i18n';
 import styles from './styles';
 
-const MainHeader = ({ text }) =>
+const MainHeader = ({ title }) =>
   <Text style={styles.header}>
-    {translate(text)}
+    {translate(title)}
   </Text>;
 
 MainHeader.propTypes = {
-  text: string.isRequired
+  title: string.isRequired
 };
 
 export default MainHeader;

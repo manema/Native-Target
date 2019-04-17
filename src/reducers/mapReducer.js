@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { Map } from 'immutable';
 import * as types from '../actions/actionTypes';
 
-export const initialState = Immutable.Map({
+export const initialState = Map({
   currentPosition: {
     latitude: 42.882004,
     longitude: 74.582748,

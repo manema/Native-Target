@@ -3,20 +3,20 @@ import { number, object } from 'prop-types';
 import { TouchableOpacity, Image } from 'react-native';
 import styles from './styles';
 
-const IconButton = ({ icon, addIconStyle, addContainerStyle }) =>
+const IconButton = ({ icon, iconStyle, containerStyle }) =>
   <TouchableOpacity
-    style={[styles.container, addContainerStyle]}
+    style={[styles.container, containerStyle]}
   >
     <Image
       source={icon}
-      style={[addIconStyle, styles.icon]}
+      style={[iconStyle, styles.icon]}
     />
   </TouchableOpacity>;
 
 IconButton.propTypes = {
   icon: number.isRequired,
-  addIconStyle: object,
-  addContainerStyle: object
+  iconStyle: object,
+  containerStyle: object
 };
 
 export default IconButton;

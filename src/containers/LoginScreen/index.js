@@ -16,7 +16,7 @@ const LoginScreen = ({ login, navigator }) => (
   <ScrollView>
     <ImageBackground resizeMode="cover" source={background} style={styles.background}>
       <View style={styles.container}>
-        <MainHeader text={translate('MAIN_SCREEN.title')} />
+        <MainHeader title={translate('MAIN_SCREEN.title')} />
         <LoginForm onSubmit={user => login(user.toJS())} />
         <WhiteButton
           title={translate('SIGN_UP.forgottenPassword')}

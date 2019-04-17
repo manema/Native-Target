@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { string, func, object } from 'prop-types';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { getUser } from 'selectors/sessionSelector';
 import { getCurrentPosition } from 'selectors/mapSelector';
 import { logout } from 'actions/userActions';
 import { getPosition } from 'actions/mapActions';
 import NavigationBar from 'components/common/NavigationBar';
-import IconButton from 'components//common/IconButton';
-import createTarget from 'assets/createTarget/createTarget.png';
+import IconButton from 'components/common/IconButton';
+import createTargetIcon from 'assets/createTarget/createTarget.png';
 import translate from 'utils/i18n';
 import { FONT_TITLE } from 'constants/styleConstants';
 import styles from './styles';
@@ -36,10 +36,11 @@ class MainScreen extends Component {
     return (
       <View style={styles.container}>
         <NavigationBar
-          text={translate('MAIN_SCREEN.pointTarget')}
+          title={translate('MAIN_SCREEN.pointTarget')}
         />
         <View style={[styles.map, styles.mapContainer]}>
           <MapView
+            provider={PROVIDER_GOOGLE}
             style={styles.map}
             showsUserLocation
             initialCamera={camera}
@@ -48,8 +49,8 @@ class MainScreen extends Component {
         </View>
         <View style={styles.createButtonContainer}>
           <IconButton
-            icon={createTarget}
-            addContainerStyle={styles.createButton}
+            icon={createTargetIcon}
+            containerStyle={styles.createButton}
           />
           <Text style={FONT_TITLE}>{translate('MAIN_SCREEN.newTarget')}</Text>
         </View>
@@ -72,9 +73,6 @@ const mapState = state => ({
   currentPosition: getCurrentPosition(state).currentPosition
 });
 
-const mapDispatch = dispatch => ({
-  logout: () => dispatch(logout()),
-  getPosition: () => dispatch(getPosition())
-});
+const mapDispatch = { logout, getPosition };
 
 export default connect(mapState, mapDispatch)(MainScreen);
