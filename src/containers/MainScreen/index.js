@@ -110,11 +110,11 @@ const mapState = state => ({
   lastClickPosition: getLastClickPosition(state).lastClickPosition
 });
 
-const mapDispatch = dispatch => ({
+const mapDispatch = ({
   logout,
   getPosition,
-  createTarget: target => dispatch(createTarget(target)),
-  setLastClickPosition: coords => dispatch(setLastClickPosition(coords))
+  createTarget,
+  setLastClickPosition
 });
 
 export default connect(mapState, mapDispatch)(MainScreen);
