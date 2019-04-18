@@ -8,12 +8,23 @@ export const initialState = Map({
     heading: 0,
     altitude: 17
   },
+  lastClickPosition: {
+    latitude: 42.882004,
+    longitude: 74.582748,
+  },
+  currentTarget: {}
 });
 
 const mapReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_POSITION_SUCCESS: {
       return state.set('currentPosition', action.coords);
+    }
+    case types.CREATE_TARGET_SUCCESS: {
+      return state.set('currentTarget', action.target);
+    }
+    case types.SET_LAST_CLICK_POSITION: {
+      return state.set('lastClickPosition', action.coords);
     }
     default: {
       return state;

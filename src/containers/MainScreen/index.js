@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { getUser } from 'selectors/sessionSelector';
-import { getCurrentPosition } from 'selectors/mapSelector';
+import { getCurrentPosition, getLastClickPosition } from 'selectors/mapSelector';
 import { logout } from 'actions/userActions';
-import { getPosition } from 'actions/mapActions';
+import { getPosition, setLastClickPosition, createTarget } from 'actions/mapActions';
 import NavigationBar from 'components/common/NavigationBar';
 import IconButton from 'components/common/IconButton';
 import createTargetIcon from 'assets/createTarget/createTarget.png';
@@ -37,7 +37,12 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { currentPosition: { latitude, longitude, altitude, heading } } = this.props;
+    const {
+      currentPosition: { latitude, longitude, altitude, heading },
+      lastClickPosition,
+      setLastClickPosition,
+      createTarget
+    } = this.props;
     const { showMenu } = this.state;
     const camera = {
       center: {
@@ -57,6 +62,7 @@ class MainScreen extends Component {
         <View style={[styles.map, styles.mapContainer]}>
           <MapView
             provider={PROVIDER_GOOGLE}
+            onPress={event => setLastClickPosition(event.nativeEvent.coordinate)}
             style={styles.map}
             showsUserLocation
             initialCamera={camera}
@@ -65,7 +71,12 @@ class MainScreen extends Component {
         </View>
         { showMenu ?
           <View style={styles.createFormContainer}>
-            <CreateTargetForm />
+            <CreateTargetForm
+              onSubmit={(targetInfo) => {
+                const normalizedTargetInfo = targetInfo.toJS();
+                return createTarget({ ...normalizedTargetInfo, ...lastClickPosition });
+              }}
+            />
           </View> :
           <View style={styles.createButtonContainer}>
             <IconButton
@@ -83,7 +94,10 @@ class MainScreen extends Component {
 
 MainScreen.propTypes = {
   getPosition: func.isRequired,
-  currentPosition: object
+  setLastClickPosition: func.isRequired,
+  createTarget: func.isRequired,
+  currentPosition: object,
+  lastClickPosition: object
 };
 
 MainScreen.navigationOptions = {
@@ -92,9 +106,15 @@ MainScreen.navigationOptions = {
 
 const mapState = state => ({
   username: getUser(state).username,
-  currentPosition: getCurrentPosition(state).currentPosition
+  currentPosition: getCurrentPosition(state).currentPosition,
+  lastClickPosition: getLastClickPosition(state).lastClickPosition
 });
 
-const mapDispatch = { logout, getPosition };
+const mapDispatch = dispatch => ({
+  logout,
+  getPosition,
+  createTarget: target => dispatch(createTarget(target)),
+  setLastClickPosition: coords => dispatch(setLastClickPosition(coords))
+});
 
 export default connect(mapState, mapDispatch)(MainScreen);

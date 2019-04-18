@@ -9,10 +9,10 @@ const Input = ({
   password = false,
   label,
   meta: { touched, error },
-  textAddStyle
+  textStyle
 }) => (
   <View style={styles.container}>
-    {label && <Text style={[styles.text, FONT_TITLE, textAddStyle]}>{label.toUpperCase()}</Text>}
+    {label && <Text style={[styles.text, FONT_TITLE, textStyle]}>{label.toUpperCase()}</Text>}
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
@@ -31,7 +31,7 @@ Input.propTypes = {
   label: string,
   meta: object,
   password: bool,
-  textAddStyle: object
+  textStyle: object
 };
 
 export default Input;

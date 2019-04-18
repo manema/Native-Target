@@ -1,9 +1,22 @@
 import { Alert } from 'react-native';
+import { SubmissionError } from 'redux-form';
 
+import mapApi from 'api/mapApi';
 import * as types from './actionTypes';
+import { normalizeError } from '../utils/helpers';
 
 export const getPositionSuccess = coords => ({
   type: types.GET_POSITION_SUCCESS,
+  coords
+});
+
+export const createTargetSuccess = target => ({
+  type: types.CREATE_TARGET_SUCCESS,
+  target
+});
+
+export const setLastClickPosition = coords => ({
+  type: types.SET_LAST_CLICK_POSITION,
   coords
 });
 
@@ -17,5 +30,24 @@ export const getPosition = () =>
       );
     } catch (err) {
       throw err;
+    }
+  };
+
+export const createTarget = ({ area, latitude, longitude, title, topic }) =>
+  async (dispatch) => {
+    try {
+      const target = {
+        title,
+        lat: latitude,
+        lng: longitude,
+        radius: area,
+        topicId: topic
+      };
+      const targetInfo = await mapApi.createTarget({ target });
+      dispatch(createTargetSuccess(targetInfo));
+    } catch ({ errors }) {
+      throw new SubmissionError({
+        _error: normalizeError(errors),
+      });
     }
   };

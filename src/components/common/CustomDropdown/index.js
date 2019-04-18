@@ -10,10 +10,10 @@ const CustomDropdown = ({ input: { onChange, ...restInput }, data, label }) => (
     {label && <Text style={FONT_TITLE}>{label.toUpperCase()}</Text>}
     <Dropdown
       data={data}
-      {...styles.dropdown}
       containerStyle={styles.inputContainer}
-      {...restInput}
       onChangeText={onChange}
+      {...styles.dropdown}
+      {...restInput}
     />
   </View>
 );
@@ -22,7 +22,7 @@ CustomDropdown.propTypes = {
   input: object.isRequired,
   label: string,
   meta: object,
-  data: array
+  data: array.isRequired
 };
 
 export default CustomDropdown;
