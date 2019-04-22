@@ -39,7 +39,8 @@ export const createTarget =
     latitude: lat,
     longitude: lng,
     title,
-    topic: topicId }) =>
+    topic: topicId
+  }) =>
     async (dispatch) => {
       try {
         const target = { title, lat, lng, radius, topicId };

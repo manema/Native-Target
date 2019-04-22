@@ -106,8 +106,8 @@ MainScreen.navigationOptions = {
 
 const mapState = state => ({
   username: getUser(state).username,
-  currentPosition: getCurrentPosition(state).currentPosition,
-  lastClickPosition: getLastClickPosition(state).lastClickPosition
+  currentPosition: getCurrentPosition(state),
+  lastClickPosition: getLastClickPosition(state)
 });
 
 const mapDispatch = ({

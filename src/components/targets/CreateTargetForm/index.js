@@ -3,7 +3,7 @@ import { func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { View, Text } from 'react-native';
 
-import * as constraints from 'utils/constraints';
+import { validations, createTarget } from 'utils/constraints';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
 import translate from 'utils/i18n';
@@ -51,5 +51,5 @@ CreateTargetForm.propTypes = {
 
 export default reduxForm({
   form: 'createTarget',
-  validate: constraints.validations(constraints.createTarget)
+  validate: validations(createTarget)
 })(CreateTargetForm);
