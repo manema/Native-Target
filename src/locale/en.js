@@ -23,5 +23,12 @@ export default {
     name: 'Name',
     gender: 'Gender',
     facebook: 'CONNECT WITH FACEBOOK'
+  },
+
+  CREATE_TARGET: {
+    button: 'SAVE TARGET',
+    selectArea: 'SELECT AREA LENGHT',
+    targetTitle: 'TARGET TITLE',
+    selectTopic: 'SELECT A TOPIC',
   }
 };

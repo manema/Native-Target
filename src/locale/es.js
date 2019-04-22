@@ -20,5 +20,12 @@ export default {
     button: 'Iniciar sesión',
     name: 'Nombre',
     gender: 'Género'
+  },
+
+  CREATE_TARGET: {
+    button: 'GUARDAR TARGET',
+    selectArea: 'ESPECIFICAR LARGO DEL AREA',
+    targetTitle: 'TITULO DEL TARGET',
+    selectTopic: 'SELECCIONA UN TOPICO'
   }
 };

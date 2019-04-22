@@ -28,5 +28,15 @@ export const signUp = {
   }
 };
 
+export const createTarget = {
+  area: {
+    presence: true,
+    numericality: { strict: true }
+  },
+  title: {
+    presence: true
+  }
+};
+
 export const validations = constraints =>
   data => validate(data.toJS(), constraints) || {};

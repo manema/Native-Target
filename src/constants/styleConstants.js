@@ -1,8 +1,8 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, LayoutAnimation } from 'react-native';
 import { isIos } from './appConstants';
 
 // breakpoints
-export const screenWidth = Dimensions.get('window').width;
+export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const SM = 360;
 
 // colors
@@ -15,7 +15,7 @@ export const FONT_TITLE = {
   color: BLACK,
   fontFamily: isIos ? 'Arial' : 'Lato-Bold',
   fontWeight: '500',
-  fontSize: screenWidth <= SM ? 12 : 14,
+  fontSize: SCREEN_WIDTH <= SM ? 12 : 14,
   letterSpacing: 1
 };
 
@@ -28,3 +28,6 @@ export const BLACK_BUTTON = {
   backgroundColor: BLACK,
   color: WHITE,
 };
+
+// animations
+export const EASE_IN = LayoutAnimation.create(200, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.scaleXY);

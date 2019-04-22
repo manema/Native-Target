@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     height: '10%'
   },
   header: {
+    fontSize: 14,
     textAlign: 'center',
     marginVertical: '5%',
     width: '70%'
