@@ -31,7 +31,7 @@ class MainScreen extends Component {
     getPosition();
   }
 
-  onShowMenu = () => {
+  toggleMenu = () => {
     LayoutAnimation.configureNext(EASE_IN);
     this.setState(prevState => ({ showMenu: !prevState.showMenu }));
   }
@@ -82,7 +82,7 @@ class MainScreen extends Component {
             <IconButton
               icon={createTargetIcon}
               containerStyle={styles.createButton}
-              onPress={this.onShowMenu}
+              onPress={this.toggleMenu}
             />
             <Text style={FONT_TITLE}>{translate('MAIN_SCREEN.newTarget')}</Text>
           </View>

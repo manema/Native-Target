@@ -33,21 +33,21 @@ export const getPosition = () =>
     }
   };
 
-export const createTarget = ({ area, latitude, longitude, title, topic }) =>
-  async (dispatch) => {
-    try {
-      const target = {
-        title,
-        lat: latitude,
-        lng: longitude,
-        radius: area,
-        topicId: topic
-      };
-      const targetInfo = await mapApi.createTarget({ target });
-      dispatch(createTargetSuccess(targetInfo));
-    } catch ({ errors }) {
-      throw new SubmissionError({
-        _error: normalizeError(errors),
-      });
-    }
-  };
+export const createTarget =
+  ({
+    area: radius,
+    latitude: lat,
+    longitude: lng,
+    title,
+    topic: topicId }) =>
+    async (dispatch) => {
+      try {
+        const target = { title, lat, lng, radius, topicId };
+        const targetInfo = await mapApi.createTarget({ target });
+        dispatch(createTargetSuccess(targetInfo));
+      } catch ({ errors }) {
+        throw new SubmissionError({
+          _error: normalizeError(errors),
+        });
+      }
+    };
