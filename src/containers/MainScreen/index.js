@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
+import { func, object, array } from 'prop-types';
 import { View, Text, LayoutAnimation, NativeModules } from 'react-native';
 import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 import { getUser } from 'selectors/sessionSelector';
-import { getCurrentPosition, getLastClickPosition } from 'selectors/mapSelector';
+import { getCurrentPosition, getLastClickPosition, obtainTargets } from 'selectors/mapSelector';
 import { logout } from 'actions/userActions';
-import { getPosition, setLastClickPosition, createTarget } from 'actions/mapActions';
+import { getPosition, setLastClickPosition, createTarget, getTargets } from 'actions/mapActions';
 import NavigationBar from 'components/common/NavigationBar';
 import IconButton from 'components/common/IconButton';
 import createTargetIcon from 'assets/createTarget/createTarget.png';
+import targetIcon from 'assets/target/target.png';
 import CreateTargetForm from 'components/targets/CreateTargetForm';
 import translate from 'utils/i18n';
 import { FONT_TITLE, EASE_IN } from 'constants/styleConstants';
@@ -27,8 +28,9 @@ class MainScreen extends Component {
   }
 
   componentDidMount() {
-    const { getPosition } = this.props;
+    const { getPosition, getTargets } = this.props;
     getPosition();
+    getTargets();
   }
 
   toggleMenu = () => {
@@ -41,7 +43,8 @@ class MainScreen extends Component {
       currentPosition: { latitude, longitude, altitude, heading },
       lastClickPosition,
       setLastClickPosition,
-      createTarget
+      createTarget,
+      targets
     } = this.props;
     const { showMenu } = this.state;
     const camera = {
@@ -67,7 +70,15 @@ class MainScreen extends Component {
             showsUserLocation
             initialCamera={camera}
             camera={camera}
-          />
+          >
+            {targets.map(({ target: { lat: latitude, lng: longitude, title, id } }) =>
+              <Marker
+                coordinate={{ latitude, longitude }}
+                image={targetIcon}
+                title={title}
+                key={id}
+              />)}
+          </MapView>
         </View>
         { showMenu ?
           <View style={styles.createFormContainer}>
@@ -97,7 +108,9 @@ MainScreen.propTypes = {
   setLastClickPosition: func.isRequired,
   createTarget: func.isRequired,
   currentPosition: object,
-  lastClickPosition: object
+  lastClickPosition: object,
+  targets: array,
+  getTargets: func.isRequired
 };
 
 MainScreen.navigationOptions = {
@@ -107,13 +120,15 @@ MainScreen.navigationOptions = {
 const mapState = state => ({
   username: getUser(state).username,
   currentPosition: getCurrentPosition(state),
-  lastClickPosition: getLastClickPosition(state)
+  lastClickPosition: getLastClickPosition(state),
+  targets: obtainTargets(state)
 });
 
 const mapDispatch = ({
   logout,
   getPosition,
   createTarget,
+  getTargets,
   setLastClickPosition
 });
 
