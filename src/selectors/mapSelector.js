@@ -14,3 +14,8 @@ export const obtainTargets = createSelector(
   state => state.getIn(['map', 'targets']),
   targets => targets
 );
+
+export const getIsOpenMenu = createSelector(
+  state => state.getIn(['map', 'isOpenMenu']),
+  isOpenMenu => isOpenMenu
+);

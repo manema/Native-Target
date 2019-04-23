@@ -25,6 +25,10 @@ export const setLastClickPosition = coords => ({
   coords
 });
 
+export const toggleMenu = () => ({
+  type: types.TOGGLE_MENU
+});
+
 export const getPosition = () =>
   async (dispatch) => {
     try {
@@ -63,7 +67,7 @@ export const createTarget =
         const target = { title, lat, lng, radius, topicId };
         const targetInfo = await mapApi.createTarget({ target });
         dispatch(createTargetSuccess(targetInfo));
-        getTargets();
+        dispatch(getTargets());
       } catch ({ errors }) {
         throw new SubmissionError({
           _error: normalizeError(errors),

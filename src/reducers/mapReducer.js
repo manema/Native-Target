@@ -13,7 +13,8 @@ export const initialState = Map({
     longitude: 74.582748,
   },
   currentTarget: {},
-  targets: []
+  targets: [],
+  isOpenMenu: false
 });
 
 const mapReducer = (state = initialState, action) => {
@@ -22,13 +23,17 @@ const mapReducer = (state = initialState, action) => {
       return state.set('currentPosition', action.coords);
     }
     case types.CREATE_TARGET_SUCCESS: {
-      return state.set('currentTarget', action.target);
+      const newState = state.set('currentTarget', action.target);
+      return newState.set('isOpenMenu', false);
     }
     case types.GET_TARGETS_SUCCESS: {
       return state.set('targets', action.targets);
     }
     case types.SET_LAST_CLICK_POSITION: {
       return state.set('lastClickPosition', action.coords);
+    }
+    case types.TOGGLE_MENU: {
+      return state.set('isOpenMenu', !state.isOpenMenu);
     }
     default: {
       return state;
