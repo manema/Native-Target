@@ -73,7 +73,7 @@ class MainScreen extends Component {
               />)}
           </MapView>
         </View>
-        { isOpenMenu ?
+        {isOpenMenu ?
           <View style={styles.createFormContainer}>
             <CreateTargetForm
               onSubmit={(targetInfo) => {

@@ -47,10 +47,8 @@ export const getTargets = () =>
     try {
       const { targets } = await mapApi.getTargets();
       dispatch(getTargetsSuccess(targets));
-    } catch (errors) {
-      throw new SubmissionError({
-        _error: normalizeError(errors),
-      });
+    } catch ({ errors }) {
+      throw normalizeError(errors);
     }
   };
 

@@ -23,8 +23,10 @@ const mapReducer = (state = initialState, action) => {
       return state.set('currentPosition', action.coords);
     }
     case types.CREATE_TARGET_SUCCESS: {
-      const newState = state.set('currentTarget', action.target);
-      return newState.set('isOpenMenu', false);
+      return state.merge(Map({
+        currentTarget: action.target,
+        isOpenMenu: false
+      }));
     }
     case types.GET_TARGETS_SUCCESS: {
       return state.set('targets', action.targets);
