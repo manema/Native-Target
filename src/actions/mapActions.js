@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { SubmissionError } from 'redux-form';
 
 import mapApi from 'api/mapApi';
@@ -50,8 +49,8 @@ export const getTargets = () =>
       const { targets } = await mapApi.getTargets();
       dispatch(fetchTargetsSuccess(targets));
       dispatch(decreaseFetchingIndicator());
-    } catch ({ error }) {
-      dispatch(fetchingError(error));
+    } catch (errors) {
+      dispatch(fetchingError(errors));
     }
   };
 
