@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { func, object, array, bool } from 'prop-types';
+import { func, object, array } from 'prop-types';
 import { View, Text, LayoutAnimation, NativeModules } from 'react-native';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 import { getUser } from 'selectors/sessionSelector';
-import { getCurrentPosition, getLastClickPosition, obtainTargets, getIsOpenMenu } from 'selectors/mapSelector';
+import { getCurrentPosition, getLastClickPosition, obtainTargets } from 'selectors/mapSelector';
 import { logout } from 'actions/userActions';
-import { getPosition, setLastClickPosition, createTarget, getTargets, toggleMenu } from 'actions/mapActions';
+import { getPosition, setLastClickPosition, createTarget, getTargets } from 'actions/mapActions';
 import NavigationBar from 'components/common/NavigationBar';
 import IconButton from 'components/common/IconButton';
 import createTargetIcon from 'assets/createTarget/createTarget.png';
@@ -23,23 +23,31 @@ UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
 class MainScreen extends Component {
+  state = { isOpenMenu: false }
+
   componentDidMount() {
     const { getPosition, getTargets } = this.props;
     getPosition();
     getTargets();
   }
 
+  onSubmit = async (targetInfo) => {
+    const { createTarget, lastClickPosition } = this.props;
+    const normalizedTargetInfo = targetInfo.toJS();
+    await createTarget({ ...normalizedTargetInfo, ...lastClickPosition });
+    this.toggleMenu();
+  }
+
+  toggleMenu = () => this.setState(prevState => ({ isOpenMenu: !prevState.isOpenMenu }));
+
   render() {
     LayoutAnimation.configureNext(EASE_IN);
     const {
       currentPosition: { latitude, longitude, altitude, heading },
-      lastClickPosition,
       setLastClickPosition,
-      createTarget,
-      toggleMenu,
-      targets,
-      isOpenMenu
+      targets
     } = this.props;
+    const { isOpenMenu } = this.state;
     const camera = {
       center: {
         latitude,
@@ -75,18 +83,13 @@ class MainScreen extends Component {
         </View>
         {isOpenMenu ?
           <View style={styles.createFormContainer}>
-            <CreateTargetForm
-              onSubmit={(targetInfo) => {
-                const normalizedTargetInfo = targetInfo.toJS();
-                return createTarget({ ...normalizedTargetInfo, ...lastClickPosition });
-              }}
-            />
+            <CreateTargetForm onSubmit={this.onSubmit} />
           </View> :
           <View style={styles.createButtonContainer}>
             <IconButton
               icon={createTargetIcon}
               containerStyle={styles.createButton}
-              onPress={toggleMenu}
+              onPress={this.toggleMenu}
             />
             <Text style={FONT_TITLE}>{translate('MAIN_SCREEN.newTarget')}</Text>
           </View>
@@ -103,9 +106,7 @@ MainScreen.propTypes = {
   currentPosition: object,
   lastClickPosition: object,
   targets: array,
-  getTargets: func.isRequired,
-  isOpenMenu: bool.isRequired,
-  toggleMenu: func.isRequired
+  getTargets: func.isRequired
 };
 
 MainScreen.navigationOptions = {
@@ -116,8 +117,7 @@ const mapState = state => ({
   username: getUser(state).username,
   currentPosition: getCurrentPosition(state),
   lastClickPosition: getLastClickPosition(state),
-  targets: obtainTargets(state),
-  isOpenMenu: getIsOpenMenu(state)
+  targets: obtainTargets(state)
 });
 
 const mapDispatch = ({
@@ -125,8 +125,7 @@ const mapDispatch = ({
   getPosition,
   createTarget,
   getTargets,
-  setLastClickPosition,
-  toggleMenu
+  setLastClickPosition
 });
 
 export default connect(mapState, mapDispatch)(MainScreen);
