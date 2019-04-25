@@ -49,8 +49,8 @@ export const getTargets = () =>
       const { targets } = await mapApi.getTargets();
       dispatch(fetchTargetsSuccess(targets));
       dispatch(decreaseFetchingIndicator());
-    } catch (errors) {
-      dispatch(fetchingError(errors));
+    } catch ({ error }) {
+      dispatch(fetchingError(error));
     }
   };
 

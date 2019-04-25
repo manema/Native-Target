@@ -1,13 +1,15 @@
 import React from 'react';
-import { node, number } from 'prop-types';
+import { node, number, string } from 'prop-types';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getFetchingCounter } from 'selectors/appSelector';
+import { clearFetchingError } from 'actions/appActions';
+import { getFetchingCounter, getError } from 'selectors/appSelector';
+import CustomToast from 'components/common/CustomToast';
 import styles from './styles';
 
 const WithApp = WrappedComponent => (props) => {
-  const { fetchingCounter } = props;
+  const { fetchingCounter, clearFetchingError, error } = props;
   return (
     <View style={styles.container}>
       <WrappedComponent {...props} />
@@ -16,21 +18,32 @@ const WithApp = WrappedComponent => (props) => {
           <ActivityIndicator size="large" />
         </View>
       }
+      { error &&
+      <CustomToast 
+        message={error}
+        callbackOnFinish={clearFetchingError}
+        display={error}
+      />
+      }
     </View>
   );
 };
 
 WithApp.propTypes = {
   children: node.isRequired,
-  fetchingCounter: number.isRequired
+  fetchingCounter: number.isRequired,
+  error: string
 };
 
 const mapState = state => ({
-  fetchingCounter: getFetchingCounter(state)
+  fetchingCounter: getFetchingCounter(state),
+  error: getError(state)
 });
 
+const mapDispatch = ({ clearFetchingError });
+
 const composedAppWrapper = compose(
-  connect(mapState, null),
+  connect(mapState, mapDispatch),
   WithApp
 );
 
