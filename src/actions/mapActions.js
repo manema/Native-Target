@@ -29,9 +29,13 @@ export const setLastClickPosition = coords => ({
 export const getPosition = () =>
   async (dispatch) => {
     try {
+      dispatch(increaseFetchingIndicator());
       await navigator.geolocation.getCurrentPosition(
-        ({ coords }) => dispatch(getPositionSuccess(coords)),
-        error => Alert.alert(error.message),
+        ({ coords }) => { 
+          dispatch(getPositionSuccess(coords));
+          dispatch(decreaseFetchingIndicator());
+        },
+        error => dispatch(fetchingError(error.message)),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
       );
     } catch (err) {
