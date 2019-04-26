@@ -15,6 +15,11 @@ export const createTargetSuccess = target => ({
   target
 });
 
+export const getTargetsSuccess = targets => ({
+  type: types.GET_TARGETS_SUCCESS,
+  targets
+});
+
 export const setLastClickPosition = coords => ({
   type: types.SET_LAST_CLICK_POSITION,
   coords
@@ -33,6 +38,16 @@ export const getPosition = () =>
     }
   };
 
+export const getTargets = () =>
+  async (dispatch) => {
+    try {
+      const { targets } = await mapApi.getTargets();
+      dispatch(getTargetsSuccess(targets));
+    } catch ({ errors }) {
+      throw normalizeError(errors);
+    }
+  };
+
 export const createTarget =
   ({
     area: radius,
@@ -46,6 +61,7 @@ export const createTarget =
         const target = { title, lat, lng, radius, topicId };
         const targetInfo = await mapApi.createTarget({ target });
         dispatch(createTargetSuccess(targetInfo));
+        dispatch(getTargets());
       } catch ({ errors }) {
         throw new SubmissionError({
           _error: normalizeError(errors),

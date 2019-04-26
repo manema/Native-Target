@@ -9,3 +9,8 @@ export const getLastClickPosition = createSelector(
   state => state.getIn(['map', 'lastClickPosition']),
   lastClickPosition => lastClickPosition
 );
+
+export const obtainTargets = createSelector(
+  state => state.getIn(['map', 'targets']),
+  targets => targets
+);
