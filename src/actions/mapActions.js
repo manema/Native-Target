@@ -3,6 +3,7 @@ import { SubmissionError } from 'redux-form';
 
 import mapApi from 'api/mapApi';
 import * as types from './actionTypes';
+import { increaseFetchingIndicator, decreaseFetchingIndicator, fetchingError } from './appActions';
 import { normalizeError } from '../utils/helpers';
 
 export const getPositionSuccess = coords => ({
@@ -15,8 +16,8 @@ export const createTargetSuccess = target => ({
   target
 });
 
-export const getTargetsSuccess = targets => ({
-  type: types.GET_TARGETS_SUCCESS,
+export const fetchTargetsSuccess = targets => ({
+  type: types.FETCH_TARGETS_SUCCESS,
   targets
 });
 
@@ -28,9 +29,13 @@ export const setLastClickPosition = coords => ({
 export const getPosition = () =>
   async (dispatch) => {
     try {
+      dispatch(increaseFetchingIndicator());
       await navigator.geolocation.getCurrentPosition(
-        ({ coords }) => dispatch(getPositionSuccess(coords)),
-        error => Alert.alert(error.message),
+        ({ coords }) => { 
+          dispatch(getPositionSuccess(coords));
+          dispatch(decreaseFetchingIndicator());
+        },
+        error => dispatch(fetchingError(error.message)),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
       );
     } catch (err) {
@@ -41,10 +46,12 @@ export const getPosition = () =>
 export const getTargets = () =>
   async (dispatch) => {
     try {
+      dispatch(increaseFetchingIndicator());
       const { targets } = await mapApi.getTargets();
-      dispatch(getTargetsSuccess(targets));
-    } catch ({ errors }) {
-      throw normalizeError(errors);
+      dispatch(fetchTargetsSuccess(targets));
+      dispatch(decreaseFetchingIndicator());
+    } catch ({ error }) {
+      dispatch(fetchingError(error));
     }
   };
 
