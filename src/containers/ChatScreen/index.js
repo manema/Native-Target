@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
-import { View, ImageBackground, ScrollView } from 'react-native';
+import { func, object, array } from 'prop-types';
+import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
-// import Separator from 'components/common/Separator';
 import profileIcon from 'assets/profile/profile.png';
-import chatIcon from 'assets/chat/chat.png';
-import background from 'assets/background.png';
+import mapIcon from 'assets/map/map.png';
 import NavigationBar from 'components/common/NavigationBar';
 import ChatBox from 'components/chat/ChatBox';
 import { obtainConversations } from 'selectors/chatSelector';
@@ -20,16 +18,20 @@ class ChatScreen extends Component {
   }
 
   render() {
-    const { fullName, conversations, navigator } = this.props;
+    const { conversations, navigator } = this.props;
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <NavigationBar
-            title={fullName}
-            leftIcon={profileIcon}
-            rightIcon={chatIcon}
-          />
-          <View style={styles.BoxsContainer}>
+      <View style={styles.container}>
+        <NavigationBar
+          title="Chat"
+          leftIcon={profileIcon}
+          rightIcon={mapIcon}
+          containerStyle={styles.navigationBarBorder}
+          onPressRightButton={() => navigator.push({
+            screen: 'reactnativebase.MainScreen'
+          })}
+        />
+        <ScrollView>
+          <View style={styles.boxsContainer}>
             {conversations.map(({
               user: { id, fullName, avatar: { smallThumbUrl } },
               topicIcon,
@@ -46,15 +48,16 @@ class ChatScreen extends Component {
               />)
             }
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 ChatScreen.propTypes = {
   navigator: object.isRequired,
-  getConversations: func.isRequired
+  getConversations: func.isRequired,
+  conversations: array.isRequired
 };
 
 ChatScreen.navigationOptions = {

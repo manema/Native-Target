@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, node, func } from 'prop-types';
+import { string, node, func, object } from 'prop-types';
 import { Text, View } from 'react-native';
 import { FONT_TITLE } from 'constants/styleConstants';
 import IconButton from '../IconButton';
@@ -11,9 +11,10 @@ const NavigationBar =
     leftIcon,
     rightIcon,
     onPressLeftButton,
-    onPressRightButton
+    onPressRightButton,
+    containerStyle
   }) =>
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <View style={styles.button}>
         <IconButton
           icon={leftIcon}
@@ -34,7 +35,8 @@ NavigationBar.propTypes = {
   leftIcon: node,
   rightIcon: node,
   onPressLeftButton: func.isRequired,
-  onPressRightButton: func.isRequired
+  onPressRightButton: func.isRequired,
+  containerStyle: object
 };
 
 export default NavigationBar;
