@@ -17,7 +17,7 @@ class CustomToast extends Component {
       message,
       callbackOnFinish
     } = this.props;
-    display && this.toastRef.current.show(message, duration || defaultDuration, callbackOnFinish);
+    display && this.toastRef.current.show(message, duration, callbackOnFinish);
   }
 
   render() { return (<Toast ref={this.toastRef} />); }
@@ -28,6 +28,10 @@ CustomToast.propTypes = {
   display: bool,
   message: string,
   callbackOnFinish: func
+};
+
+CustomToast.defaultProps = {
+  duration: defaultDuration
 };
 
 export default CustomToast;
