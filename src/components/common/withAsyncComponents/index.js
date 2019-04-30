@@ -8,7 +8,7 @@ import { getFetchingCounter, getError } from 'selectors/appSelector';
 import CustomToast from 'components/common/CustomToast';
 import styles from './styles';
 
-const WithApp = WrappedComponent => (props) => {
+const withAsyncComponents = WrappedComponent => (props) => {
   const { fetchingCounter, clearFetchingError, error } = props;
   return (
     <View style={styles.container}>
@@ -19,17 +19,17 @@ const WithApp = WrappedComponent => (props) => {
         </View>
       }
       { error &&
-      <CustomToast 
-        message={error}
-        callbackOnFinish={clearFetchingError}
-        display={error}
-      />
+        <CustomToast
+          message={error}
+          callbackOnFinish={clearFetchingError}
+          display={error}
+        />
       }
     </View>
   );
 };
 
-WithApp.propTypes = {
+withAsyncComponents.propTypes = {
   children: node.isRequired,
   fetchingCounter: number.isRequired,
   error: string
@@ -44,7 +44,7 @@ const mapDispatch = ({ clearFetchingError });
 
 const composedAppWrapper = compose(
   connect(mapState, mapDispatch),
-  WithApp
+  withAsyncComponents
 );
 
 export default composedAppWrapper;

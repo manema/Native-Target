@@ -9,7 +9,7 @@ export const SM = 360;
 export const BLACK = '#000000';
 export const WHITE = '#FFFFFF';
 export const RED = '#FF0000';
-export const TRANSPARENT = 'rgba(52, 52, 52, 0.8)';
+export const TRANSPARENT_GRAY = 'rgba(52, 52, 52, 0.8)';
 
 // commons
 export const FONT_TITLE = {

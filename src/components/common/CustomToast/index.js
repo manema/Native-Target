@@ -7,7 +7,7 @@ const defaultDuration = 2000;
 class CustomToast extends Component {
   constructor(props) {
     super(props);
-    this.toasteRef = React.createRef();
+    this.toastRef = React.createRef();
   }
 
   componentDidMount() {
@@ -17,10 +17,10 @@ class CustomToast extends Component {
       message,
       callbackOnFinish
     } = this.props;
-    display && this.toasteRef.current.show(message, duration || defaultDuration, callbackOnFinish);
+    display && this.toastRef.current.show(message, duration || defaultDuration, callbackOnFinish);
   }
 
-  render() { return (<Toast ref={this.toasteRef} />); }
+  render() { return (<Toast ref={this.toastRef} />); }
 }
 
 CustomToast.propTypes = {
