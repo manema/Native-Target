@@ -18,7 +18,7 @@ const withAsyncComponents = WrappedComponent => (props) => {
           <ActivityIndicator size="large" />
         </View>
       }
-      { error &&
+      { !!error &&
         <CustomToast
           message={error}
           callbackOnFinish={clearFetchingError}
