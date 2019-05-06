@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { SubmissionError } from 'redux-form';
 
 import mapApi from 'api/mapApi';

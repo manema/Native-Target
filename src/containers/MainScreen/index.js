@@ -12,6 +12,8 @@ import NavigationBar from 'components/common/NavigationBar';
 import IconButton from 'components/common/IconButton';
 import createTargetIcon from 'assets/createTarget/createTarget.png';
 import targetIcon from 'assets/target/target.png';
+import profileIcon from 'assets/profile/profile.png';
+import chatIcon from 'assets/chat/chat.png';
 import CreateTargetForm from 'components/targets/CreateTargetForm';
 import translate from 'utils/i18n';
 import { FONT_TITLE, EASE_IN } from 'constants/styleConstants';
@@ -45,7 +47,8 @@ class MainScreen extends Component {
     const {
       currentPosition: { latitude, longitude, altitude, heading },
       setLastClickPosition,
-      targets
+      targets,
+      navigator
     } = this.props;
     const { isOpenMenu } = this.state;
     const camera = {
@@ -62,6 +65,11 @@ class MainScreen extends Component {
       <View style={styles.container}>
         <NavigationBar
           title={translate('MAIN_SCREEN.pointTarget')}
+          leftIcon={profileIcon}
+          rightIcon={chatIcon}
+          onPressRightButton={() => navigator.push({
+            screen: 'reactnativebase.ChatScreen'
+          })}
         />
         <View style={[styles.map, styles.mapContainer]}>
           <MapView
@@ -106,7 +114,8 @@ MainScreen.propTypes = {
   currentPosition: object,
   lastClickPosition: object,
   targets: array,
-  getTargets: func.isRequired
+  getTargets: func.isRequired,
+  navigator: object.isRequired
 };
 
 MainScreen.navigationOptions = {
