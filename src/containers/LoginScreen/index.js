@@ -10,6 +10,7 @@ import Separator from 'components/common/Separator';
 import MainHeader from 'components/common/MainHeader';
 import background from 'assets/background.png';
 import WhiteButton from 'components/common/WhiteButton';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import styles from './styles';
 
 const LoginScreen = ({ login, navigator }) => (
@@ -33,6 +34,28 @@ const LoginScreen = ({ login, navigator }) => (
             screen: 'reactnativebase.SignUpScreen'
           })}
         />
+        <View>
+          <LoginButton
+            readPermissions={["public_profile"]}
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  console.log('login has error: ' + result.error);
+                } else if (result.isCancelled) {
+                  console.log('login is cancelled.');
+                } else {
+                  console.log('aaa');
+                  AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                      console.log(data.accessToken.toString());
+                    }
+                  );
+                }
+              }
+            }
+            onLogoutFinished={() => console.log('logout.')} 
+          />
+        </View>
       </View>
     </ImageBackground>
   </ScrollView>
