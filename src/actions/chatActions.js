@@ -3,7 +3,7 @@ import {
   increaseFetchingIndicator,
   decreaseFetchingIndicator,
   fetchingError
-} from 'actions/appActions';
+} from 'actions/withAsyncActions';
 import { FETCH_CONVERSATIONS_SUCCESS } from './actionTypes';
 import { normalizeError } from '../utils/helpers';
 

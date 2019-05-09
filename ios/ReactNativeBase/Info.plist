@@ -62,12 +62,12 @@
     <dict>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>fb306078463420387</string>
+        <string>fb166925907359293</string>
       </array>
     </dict>
   </array>
   <key>FacebookAppID</key>
-  <string>306078463420387</string>
+  <string>166925907359293</string>
   <key>FacebookDisplayName</key>
   <string>native_target</string>
   <key>LSApplicationQueriesSchemes</key>

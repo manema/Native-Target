@@ -3,7 +3,7 @@ import { node, number, string } from 'prop-types';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { clearFetchingError } from 'actions/appActions';
+import { clearFetchingError } from 'actions/withAsyncActions';
 import { getFetchingCounter, getError } from 'selectors/appSelector';
 import CustomToast from 'components/common/CustomToast';
 import styles from './styles';

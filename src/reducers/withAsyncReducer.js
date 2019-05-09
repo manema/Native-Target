@@ -11,7 +11,7 @@ export const initialState = Map({
   error: ''
 });
 
-const appReducer = (state = initialState, action) => {
+const withAsyncReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREASE_FETCHING_INDICATOR: {
       return state.set('fetchingCounter', state.get('fetchingCounter') + 1);
@@ -34,4 +34,4 @@ const appReducer = (state = initialState, action) => {
   }
 };
 
-export default appReducer;
+export default withAsyncReducer;
