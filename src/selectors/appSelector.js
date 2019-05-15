@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
 export const getFetchingCounter = createSelector(
-  state => state.getIn(['app', 'fetchingCounter']),
+  state => state.getIn(['withAsync', 'fetchingCounter']),
   fetchingCounter => fetchingCounter
 );
 
 export const getError = createSelector(
-  state => state.getIn(['app', 'error']),
+  state => state.getIn(['withAsync', 'error']),
   error => error
 );

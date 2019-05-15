@@ -9,6 +9,10 @@ class Session {
     return api.delete('/users/sign_out');
   }
 
+  static loginFacebook(token) {
+    return api.post('/users/facebook', token);
+  }
+
   static signUp(user) {
     return api.post('/users', user);
   }

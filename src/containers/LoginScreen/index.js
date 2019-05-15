@@ -4,7 +4,7 @@ import { View, ImageBackground, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 import LoginForm from 'components/user/LoginForm';
-import { login } from 'actions/userActions';
+import { login, loginFacebook } from 'actions/userActions';
 import translate from 'utils/i18n';
 import Separator from 'components/common/Separator';
 import MainHeader from 'components/common/MainHeader';
@@ -12,7 +12,7 @@ import background from 'assets/background.png';
 import WhiteButton from 'components/common/WhiteButton';
 import styles from './styles';
 
-const LoginScreen = ({ login, navigator }) => (
+const LoginScreen = ({ login, loginFacebook, navigator }) => (
   <ScrollView>
     <ImageBackground resizeMode="cover" source={background} style={styles.background}>
       <View style={styles.container}>
@@ -24,7 +24,7 @@ const LoginScreen = ({ login, navigator }) => (
         />
         <WhiteButton
           title={translate('SIGN_UP.facebook')}
-          onPress={() => {}}
+          onPress={loginFacebook}
         />
         <Separator />
         <WhiteButton
@@ -40,15 +40,14 @@ const LoginScreen = ({ login, navigator }) => (
 
 LoginScreen.propTypes = {
   login: func.isRequired,
+  loginFacebook: func.isRequired,
   navigator: object.isRequired
 };
 
-LoginScreen.navigationOptions = {
+LoginScreen.navigationOptions = ({
   title: 'Log In'
-};
-
-const mapDispatch = dispatch => ({
-  login: user => dispatch(login(user))
 });
+
+const mapDispatch = { login, loginFacebook };
 
 export default connect(null, mapDispatch)(LoginScreen);

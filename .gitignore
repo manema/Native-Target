@@ -67,3 +67,6 @@ third-party/
 
 # PODS
 ios/Pods
+
+# Index
+ios/Index

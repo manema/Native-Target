@@ -2,6 +2,12 @@ import { SubmissionError } from 'redux-form';
 import { sessionService } from 'redux-react-native-session';
 
 import userApi from 'api/userApi';
+import {
+  increaseFetchingIndicator,
+  decreaseFetchingIndicator,
+  fetchingError
+} from 'actions/withAsyncActions';
+import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { normalizeError } from '../utils/helpers';
 import * as types from './actionTypes';
 
@@ -23,6 +29,24 @@ export const login = user =>
       throw new SubmissionError({
         _error: normalizeError(errors),
       });
+    }
+  };
+
+export const loginFacebook = () =>
+  async (dispatch) => {
+    try {
+      const result = await LoginManager.logInWithReadPermissions(['public_profile']);
+      if (result.isCancelled) dispatch(fetchingError('Login is cancelled'));
+      else {
+        dispatch(increaseFetchingIndicator);
+        const { accessToken } = await AccessToken.getCurrentAccessToken();
+        const { data } = await userApi.loginFacebook({ accessToken });
+        await sessionService.saveUser(data);
+        dispatch(loginSuccess());
+        dispatch(decreaseFetchingIndicator);
+      }
+    } catch ({ error }) {
+      dispatch(fetchingError(error));
     }
   };
 

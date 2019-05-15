@@ -152,6 +152,9 @@ dependencies {
     }
     implementation 'com.google.android.gms:play-services-base:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    // Facebook
+    implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
+    implementation project(':react-native-fbsdk')
 }
 
 // Run this once to be able to run the application with BUCK

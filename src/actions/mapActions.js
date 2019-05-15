@@ -2,7 +2,7 @@ import { SubmissionError } from 'redux-form';
 
 import mapApi from 'api/mapApi';
 import * as types from './actionTypes';
-import { increaseFetchingIndicator, decreaseFetchingIndicator, fetchingError } from './appActions';
+import { increaseFetchingIndicator, decreaseFetchingIndicator, fetchingError } from './withAsyncActions';
 import { normalizeError } from '../utils/helpers';
 
 export const getPositionSuccess = coords => ({
