@@ -43,7 +43,7 @@ const CreateTargetForm = ({ onPressDelete, handleSubmit, error, submitting, isSe
         component={CustomDropdown}
         data={topics}
       />
-      <View style={[{ marginTop: -10 }, isSelectedTarget && styles.buttonsContainer]}>
+      <View style={[isSelectedTarget && styles.buttonsContainer]}>
         { isSelectedTarget &&
           <Button
             title={translate('COMMON.delete')}

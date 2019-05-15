@@ -20,6 +20,8 @@ import translate from 'utils/i18n';
 import { FONT_TITLE, EASE_IN } from 'constants/styleConstants';
 import styles from './styles';
 
+console.disableYellowBox = true;
+
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
@@ -126,19 +128,15 @@ class MainScreen extends Component {
             initialCamera={camera}
             camera={camera}
           >
-            {targets.map(({ target: { lat: latitude, lng: longitude, title, id } }) => {
-              const stringifiedId = id;
-              return (
-                <Marker
-                  coordinate={{ latitude, longitude }}
-                  image={targetIcon}
-                  title={title}
-                  onPress={this.onPressTarget}
-                  key={id}
-                  identifier={stringifiedId.toString()}
-                />
-              );
-            })
+            {targets.map(({ target: { lat: latitude, lng: longitude, title, id } }) =>
+              <Marker
+                coordinate={{ latitude, longitude }}
+                image={targetIcon}
+                title={title}
+                onPress={this.onPressTarget}
+                key={id}
+                identifier={id.toString()}
+              />)
             }
           </MapView>
         </View>
