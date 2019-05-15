@@ -35,23 +35,16 @@ export const login = user =>
 export const loginFacebook = () =>
   async (dispatch) => {
     try {
-      LoginManager.logInWithReadPermissions(['public_profile']).then(
-        (result) => {
-          if (result.isCancelled) dispatch(fetchingError('Login is cancelled'));
-          else {
-            dispatch(increaseFetchingIndicator);
-            AccessToken.getCurrentAccessToken().then(
-              ({ accessToken }) => {
-                userApi.loginFacebook({ accessToken }).then(
-                  (user) => { sessionService.saveUser(user); }
-                );
-              }
-            );
-            dispatch(loginSuccess());
-            dispatch(decreaseFetchingIndicator);
-          }
-        }
-      );
+      const result = await LoginManager.logInWithReadPermissions(['public_profile']);
+      if (result.isCancelled) dispatch(fetchingError('Login is cancelled'));
+      else {
+        dispatch(increaseFetchingIndicator);
+        const { accessToken } = await AccessToken.getCurrentAccessToken();
+        const { data } = await userApi.loginFacebook({ accessToken });
+        await sessionService.saveUser(data);
+        dispatch(loginSuccess());
+        dispatch(decreaseFetchingIndicator);
+      }
     } catch ({ error }) {
       dispatch(fetchingError(error));
     }
