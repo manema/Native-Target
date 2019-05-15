@@ -2,7 +2,7 @@ import {
   INCREASE_FETCHING_INDICATOR,
   DECREASE_FETCHING_INDICATOR,
   FETCHING_ERROR,
-  CLEAR_FETCHING_ERROR
+  SET_TOAST_MESSAGE
 } from './actionTypes';
 
 // query counter
@@ -15,4 +15,4 @@ export const fetchingError = error => ({
   error
 });
 
-export const clearFetchingError = () => ({ type: CLEAR_FETCHING_ERROR });
+export const setToastMessage = toasteMessage => ({ type: SET_TOAST_MESSAGE, toasteMessage });

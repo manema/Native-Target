@@ -22,10 +22,19 @@ export default {
     gender: 'Género'
   },
 
-  CREATE_TARGET: {
+  TARGETS: {
     button: 'GUARDAR TARGET',
     selectArea: 'ESPECIFICAR LARGO DEL AREA',
     targetTitle: 'TITULO DEL TARGET',
-    selectTopic: 'SELECCIONA UN TOPICO'
+    selectTopic: 'SELECCIONA UN TOPICO',
+    deleteTarget: 'Seguro quieres eliminar este target?',
+    deletedTarget: 'Target eliminado',
+  },
+
+  COMMON: {
+    delete: 'BORRAR',
+    save: 'GUARDAR',
+    cancel: 'Cancelar'
   }
+
 };

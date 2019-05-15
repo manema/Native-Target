@@ -1,6 +1,7 @@
 import { SubmissionError } from 'redux-form';
 
 import mapApi from 'api/mapApi';
+import translate from 'utils/i18n';
 import * as types from './actionTypes';
 import { increaseFetchingIndicator, decreaseFetchingIndicator, fetchingError } from './withAsyncActions';
 import { normalizeError } from '../utils/helpers';
@@ -13,6 +14,11 @@ export const getPositionSuccess = coords => ({
 export const createTargetSuccess = target => ({
   type: types.CREATE_TARGET_SUCCESS,
   target
+});
+
+export const deleteTargetSuccess = toastMessage => ({
+  type: types.SET_TOAST_MESSAGE,
+  toastMessage
 });
 
 export const fetchTargetsSuccess = targets => ({
@@ -74,3 +80,16 @@ export const createTarget =
         });
       }
     };
+
+export const deleteTarget = id =>
+  async (dispatch) => {
+    try {
+      dispatch(increaseFetchingIndicator());
+      await mapApi.deleteTarget(id);
+      dispatch(decreaseFetchingIndicator());
+      dispatch(deleteTargetSuccess(translate('TARGETS.deletedTarget')));
+      dispatch(getTargets());
+    } catch ({ error }) {
+      dispatch(fetchingError(error));
+    }
+  };

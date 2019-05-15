@@ -3,12 +3,12 @@ import {
   INCREASE_FETCHING_INDICATOR,
   DECREASE_FETCHING_INDICATOR,
   FETCHING_ERROR,
-  CLEAR_FETCHING_ERROR
+  SET_TOAST_MESSAGE
 } from '../actions/actionTypes';
 
 export const initialState = Map({
   fetchingCounter: 0,
-  error: ''
+  toastMessage: ''
 });
 
 const withAsyncReducer = (state = initialState, action) => {
@@ -21,12 +21,12 @@ const withAsyncReducer = (state = initialState, action) => {
     }
     case FETCHING_ERROR: {
       return state.merge({
-        error: action.error,
+        toastMessage: action.error,
         fetchingCounter: state.get('fetchingCounter') - 1
       });
     }
-    case CLEAR_FETCHING_ERROR: {
-      return state.set('error', '');
+    case SET_TOAST_MESSAGE: {
+      return state.set('toastMessage', action.toastMessage);
     }
     default: {
       return state;
