@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ReactNativeBase</string>
-    <string name="facebook_app_id">166925907359293</string>
+    <string name="facebook_app_id">@string/FACEBOOK_API_ID</string>
 </resources>
