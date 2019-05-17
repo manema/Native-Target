@@ -49,15 +49,14 @@ class MainScreen extends Component {
     this.toggleMenu();
   }
 
-  onPressTarget = (event) => {
+  onPressTarget = (id) => {
     const { isOpenMenu } = this.state;
     const { targets } = this.props;
-    const currentTargetId = parseInt(event.nativeEvent.id, 10);
-    const currentTargetTitle = targets.filter(({ target: { id } }) => id === currentTargetId);
+    const currentTargetTitle = targets.filter(({ target: { id: currentTarget } }) => currentTarget === id);
     this.setState({
       isSelectedTarget: true,
       currentTargetTitle: currentTargetTitle[0].target.title,
-      currentTargetId
+      currentTargetId: id
     });
     !isOpenMenu && this.toggleMenu();
   }
@@ -133,7 +132,7 @@ class MainScreen extends Component {
                 coordinate={{ latitude, longitude }}
                 image={targetIcon}
                 title={title}
-                onPress={this.onPressTarget}
+                onPress={() => this.onPressTarget(id)}
                 key={id}
                 identifier={id.toString()}
               />)

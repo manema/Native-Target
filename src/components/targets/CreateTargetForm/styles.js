@@ -1,4 +1,6 @@
 
+import { RED } from 'constants/styleConstants';
+
 const styles = ({
   input: { textAlign: 'left' },
   buttonsContainer: {
@@ -21,7 +23,7 @@ const styles = ({
     bottom: 10
   },
   isSelectedButtons: { height: 40, width: 115 },
-  deleteButton: { backgroundColor: '#D0011B' }
+  deleteButton: { backgroundColor: RED }
 });
 
 export default styles;

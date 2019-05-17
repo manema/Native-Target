@@ -26,7 +26,7 @@ export default {
     button: 'GUARDAR TARGET',
     selectArea: 'ESPECIFICAR LARGO DEL AREA',
     targetTitle: 'TITULO DEL TARGET',
-    selectTopic: 'SELECCIONA UN TOPICO',
+    selectTopic: 'SELECCIONA UN TÓPICO',
     deleteTarget: 'Seguro quieres eliminar este target?',
     deletedTarget: 'Target eliminado',
   },

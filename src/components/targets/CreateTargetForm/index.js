@@ -44,7 +44,7 @@ const CreateTargetForm = ({ onPressDelete, handleSubmit, error, submitting, isSe
         data={topics}
       />
       <View style={[isSelectedTarget && styles.buttonsContainer]}>
-        { isSelectedTarget &&
+        {isSelectedTarget &&
           <Button
             title={translate('COMMON.delete')}
             onPress={onPressDelete}
