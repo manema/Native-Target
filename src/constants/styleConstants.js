@@ -9,7 +9,7 @@ export const SM = 360;
 export const BLACK = '#000000';
 export const TRANSPARENT_BLACK = '#00000050';
 export const WHITE = '#FFFFFF';
-export const RED = '#FF0000';
+export const RED = '#D0011B';
 export const TRANSPARENT = 'rgba(52, 52, 52, 0.8)';
 export const YELLOW = '#F0C738';
 

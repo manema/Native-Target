@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string, bool } from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { validations, createTarget } from 'utils/constraints';
 import Input from 'components/common/Input';
@@ -12,41 +12,66 @@ import { topics } from 'constants/appConstants';
 import CustomDropdown from 'components/common/CustomDropdown';
 import styles from './styles';
 
-const CreateTargetForm = ({ handleSubmit, error, submitting }) => (
-  <View onSubmit={handleSubmit}>
-    {error && <Text style={FONT_ERROR}>{error}</Text>}
-    <Field
-      name="area"
-      label={translate('CREATE_TARGET.selectArea')}
-      component={Input}
-      textStyle={styles.input}
-    />
-    <Field
-      name="title"
-      label={translate('CREATE_TARGET.targetTitle')}
-      component={Input}
-      textStyle={styles.input}
-    />
-    <Field
-      name="topic"
-      label={translate('CREATE_TARGET.selectTopic')}
-      component={CustomDropdown}
-      data={topics}
-    />
-    <View>
-      <Button
-        title={translate('CREATE_TARGET.button')}
-        onPress={handleSubmit}
-        submitting={submitting}
+const CreateTargetForm = ({ onPressDelete, handleSubmit, error, submitting, isSelectedTarget, onClose }) => {
+  const isSelectedButtons = isSelectedTarget ? styles.isSelectedButtons : {};
+  return (
+    <View onSubmit={handleSubmit}>
+      <View style={styles.closeButtonContainer}>
+        <TouchableOpacity
+          onPress={onClose}
+          style={styles.closeButton}
+        >
+          <Text style={styles.closeButtonText}>x</Text>
+        </TouchableOpacity>
+      </View>
+      {error && <Text style={FONT_ERROR}>{error}</Text>}
+      <Field
+        name="area"
+        label={translate('TARGETS.selectArea')}
+        component={Input}
+        textStyle={styles.input}
       />
+      <Field
+        name="title"
+        label={translate('TARGETS.targetTitle')}
+        component={Input}
+        textStyle={styles.input}
+      />
+      <Field
+        name="topic"
+        label={translate('TARGETS.selectTopic')}
+        component={CustomDropdown}
+        data={topics}
+      />
+      <View style={[isSelectedTarget && styles.buttonsContainer]}>
+        {isSelectedTarget &&
+          <Button
+            title={translate('COMMON.delete')}
+            onPress={onPressDelete}
+            submitting={submitting}
+            addedContainerStyle={{ ...isSelectedButtons, ...styles.deleteButton }}
+            addedTouchableStyle={{ ...isSelectedButtons, ...styles.deleteButton }}
+          />
+        }
+        <Button
+          title={isSelectedTarget ? translate('COMMON.save') : translate('TARGETS.button')}
+          onPress={isSelectedTarget ? () => {} : handleSubmit}
+          submitting={submitting}
+          addedContainerStyle={isSelectedButtons}
+          addedTouchableStyle={isSelectedButtons}
+        />
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 CreateTargetForm.propTypes = {
   handleSubmit: func.isRequired,
   submitting: bool.isRequired,
-  error: string
+  isSelectedTarget: bool.isRequired,
+  onPressDelete: func.isRequired,
+  error: string,
+  onClose: func.isRequired
 };
 
 export default reduxForm({

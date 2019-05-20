@@ -5,7 +5,7 @@ export const getFetchingCounter = createSelector(
   fetchingCounter => fetchingCounter
 );
 
-export const getError = createSelector(
-  state => state.getIn(['withAsync', 'error']),
-  error => error
+export const getToastMessage = createSelector(
+  state => state.getIn(['withAsync', 'toastMessage']),
+  toastMessage => toastMessage
 );

@@ -41,7 +41,7 @@ const handleErrors = response =>
   });
 
 const getResponseBody = (response) => {
-  const bodyIsEmpty = response.status === 204;
+  const bodyIsEmpty = response.status === 204 || response._bodyInit === '';
   if (bodyIsEmpty) {
     return Promise.resolve();
   }

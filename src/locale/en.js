@@ -25,10 +25,19 @@ export default {
     facebook: 'CONNECT WITH FACEBOOK'
   },
 
-  CREATE_TARGET: {
+  TARGETS: {
     button: 'SAVE TARGET',
     selectArea: 'SELECT AREA LENGHT',
     targetTitle: 'TARGET TITLE',
     selectTopic: 'SELECT A TOPIC',
+    deleteTarget: 'Sure you want to delete this target?',
+    deletedTarget: 'Target successfully deleted',
+  },
+
+  COMMON: {
+    delete: 'DELETE',
+    save: 'SAVE',
+    cancel: 'Cancel'
   }
+
 };

@@ -7,9 +7,10 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { getUser } from 'selectors/sessionSelector';
 import { getCurrentPosition, getLastClickPosition, obtainTargets } from 'selectors/mapSelector';
 import { logout } from 'actions/userActions';
-import { getPosition, setLastClickPosition, createTarget, getTargets } from 'actions/mapActions';
+import { getPosition, setLastClickPosition, createTarget, getTargets, deleteTarget } from 'actions/mapActions';
 import NavigationBar from 'components/common/NavigationBar';
 import IconButton from 'components/common/IconButton';
+import DeleteTargetModal from 'components/targets/DeleteTargetModal';
 import createTargetIcon from 'assets/createTarget/createTarget.png';
 import targetIcon from 'assets/target/target.png';
 import profileIcon from 'assets/profile/profile.png';
@@ -19,13 +20,21 @@ import translate from 'utils/i18n';
 import { FONT_TITLE, EASE_IN } from 'constants/styleConstants';
 import styles from './styles';
 
+console.disableYellowBox = true;
+
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
 class MainScreen extends Component {
-  state = { isOpenMenu: false }
+  state = {
+    isOpenMenu: false,
+    isSelectedTarget: false,
+    isOpenDeleteModal: false,
+    currentTargetId: 0,
+    currentTargetTitle: 'none'
+  }
 
   componentDidMount() {
     const { getPosition, getTargets } = this.props;
@@ -40,17 +49,49 @@ class MainScreen extends Component {
     this.toggleMenu();
   }
 
+  onPressTarget = (id) => {
+    const { isOpenMenu } = this.state;
+    const { targets } = this.props;
+    const currentTargetTitle = targets.filter(({ target: { id: currentTarget } }) => currentTarget === id);
+    this.setState({
+      isSelectedTarget: true,
+      currentTargetTitle: currentTargetTitle[0].target.title,
+      currentTargetId: id
+    });
+    !isOpenMenu && this.toggleMenu();
+  }
+
+  toggleDeleteTargetMenu = () => this.setState(prevState => ({ isOpenDeleteModal: !prevState.isOpenDeleteModal }));
+
+  onPressCreateTarget = () => this.setState({ isSelectedTarget: false, isOpenMenu: true });
+
+  onCloseCreateTargetMenu = () => this.setState({ isOpenMenu: false, isSelectedTarget: false });
+
   toggleMenu = () => this.setState(prevState => ({ isOpenMenu: !prevState.isOpenMenu }));
+
+  onPressDeleteTarget = async () => {
+    const { deleteTarget } = this.props;
+    const { currentTargetId } = this.state;
+    if (deleteTarget(currentTargetId)) {
+      this.toggleDeleteTargetMenu();
+      this.toggleMenu();
+    }
+  }
 
   render() {
     LayoutAnimation.configureNext(EASE_IN);
     const {
       currentPosition: { latitude, longitude, altitude, heading },
-      setLastClickPosition,
       targets,
-      navigator
+      navigator,
+      setLastClickPosition,
     } = this.props;
-    const { isOpenMenu } = this.state;
+    const {
+      isOpenMenu,
+      isSelectedTarget,
+      isOpenDeleteModal,
+      currentTargetTitle
+    } = this.state;
     const camera = {
       center: {
         latitude,
@@ -63,6 +104,12 @@ class MainScreen extends Component {
     };
     return (
       <View style={styles.container}>
+        <DeleteTargetModal
+          visible={isOpenDeleteModal}
+          targetName={currentTargetTitle}
+          onPressDelete={this.onPressDeleteTarget}
+          onPressCancel={this.toggleDeleteTargetMenu}
+        />
         <NavigationBar
           title={translate('MAIN_SCREEN.pointTarget')}
           leftIcon={profileIcon}
@@ -85,19 +132,27 @@ class MainScreen extends Component {
                 coordinate={{ latitude, longitude }}
                 image={targetIcon}
                 title={title}
+                onPress={() => this.onPressTarget(id)}
                 key={id}
-              />)}
+                identifier={id.toString()}
+              />)
+            }
           </MapView>
         </View>
         {isOpenMenu ?
           <View style={styles.createFormContainer}>
-            <CreateTargetForm onSubmit={this.onSubmit} />
+            <CreateTargetForm
+              onSubmit={this.onSubmit}
+              isSelectedTarget={isSelectedTarget}
+              onClose={this.onCloseCreateTargetMenu}
+              onPressDelete={this.toggleDeleteTargetMenu}
+            />
           </View> :
           <View style={styles.createButtonContainer}>
             <IconButton
               icon={createTargetIcon}
               containerStyle={styles.createButton}
-              onPress={this.toggleMenu}
+              onPress={this.onPressCreateTarget}
             />
             <Text style={FONT_TITLE}>{translate('MAIN_SCREEN.newTarget')}</Text>
           </View>
@@ -111,6 +166,7 @@ MainScreen.propTypes = {
   getPosition: func.isRequired,
   setLastClickPosition: func.isRequired,
   createTarget: func.isRequired,
+  deleteTarget: func.isRequired,
   currentPosition: object,
   lastClickPosition: object,
   targets: array,
@@ -134,7 +190,8 @@ const mapDispatch = ({
   getPosition,
   createTarget,
   getTargets,
-  setLastClickPosition
+  setLastClickPosition,
+  deleteTarget
 });
 
 export default connect(mapState, mapDispatch)(MainScreen);

@@ -3,13 +3,13 @@ import { node, number, string } from 'prop-types';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { clearFetchingError } from 'actions/withAsyncActions';
-import { getFetchingCounter, getError } from 'selectors/appSelector';
+import { setToastMessage } from 'actions/withAsyncActions';
+import { getFetchingCounter, getToastMessage } from 'selectors/appSelector';
 import CustomToast from 'components/common/CustomToast';
 import styles from './styles';
 
 const withAsyncComponents = WrappedComponent => (props) => {
-  const { fetchingCounter, clearFetchingError, error } = props;
+  const { fetchingCounter, setToastMessage, toastMessage } = props;
   return (
     <View style={styles.container}>
       <WrappedComponent {...props} />
@@ -18,11 +18,11 @@ const withAsyncComponents = WrappedComponent => (props) => {
           <ActivityIndicator size="large" />
         </View>
       }
-      { !!error &&
+      { !!toastMessage &&
         <CustomToast
-          message={error}
-          callbackOnFinish={clearFetchingError}
-          display={error}
+          message={toastMessage}
+          callbackOnFinish={setToastMessage}
+          display={toastMessage}
         />
       }
     </View>
@@ -32,15 +32,17 @@ const withAsyncComponents = WrappedComponent => (props) => {
 withAsyncComponents.propTypes = {
   children: node.isRequired,
   fetchingCounter: number.isRequired,
-  error: string
+  toastMessage: string
 };
 
 const mapState = state => ({
   fetchingCounter: getFetchingCounter(state),
-  error: getError(state)
+  toastMessage: getToastMessage(state)
 });
 
-const mapDispatch = ({ clearFetchingError });
+const mapDispatch = dispatch => ({
+  setToastMessage: () => dispatch(setToastMessage(''))
+});
 
 const composedAppWrapper = compose(
   connect(mapState, mapDispatch),
